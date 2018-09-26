@@ -35,7 +35,7 @@ HEREDOC
 if [ -z "$1" ]; then usage; exit; fi
 if [ "--help" == "$1" ]; then usage; exit; fi
 
-CISCO_INTERFACE=en5
+CISCO_INTERFACE=en8
 HOME_DNS=10.0.0.1
 
 create_route() {
@@ -82,6 +82,7 @@ sudo route -n add -net 64.128.0.0/10 -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 64.192.0.0/11 -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 64.224.0.0/32 -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 72.163 -interface "${CISCO_INTERFACE}"
+sudo route -n add -net 172.16 -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 172.18 -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 199.91.0.0/16 -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 148.62.40.0/24 -interface "${CISCO_INTERFACE}"
@@ -148,6 +149,7 @@ sudo route -n delete -net 64.192.0.0/11 -interface "${CISCO_INTERFACE}"
 sudo route -n delete -net 64.224.0.0/32 -interface "${CISCO_INTERFACE}"
 
 sudo route -n delete -net 72.163 -interface "${CISCO_INTERFACE}"
+sudo route -n delete -net 172.16 -interface "${CISCO_INTERFACE}"
 sudo route -n delete -net 172.18 -interface "${CISCO_INTERFACE}"
 sudo route -n delete -net 199.91.0.0/16 -interface "${CISCO_INTERFACE}"
 sudo route -n delete -net 13.59.223/24 -interface "${CISCO_INTERFACE}"
