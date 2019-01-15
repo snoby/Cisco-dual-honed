@@ -35,7 +35,7 @@ HEREDOC
 if [ -z "$1" ]; then usage; exit; fi
 if [ "--help" == "$1" ]; then usage; exit; fi
 
-CISCO_INTERFACE=en5
+CISCO_INTERFACE=en8
 HOME_DNS=10.0.0.1
 
 create_route() {
@@ -56,7 +56,6 @@ sudo route -n add -net 171.69 -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 171.70 -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 171.71 -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 161.144 -interface "${CISCO_INTERFACE}"
-sudo route -n add -net 192.168.149 -interface "${CISCO_INTERFACE}"
 #
 sudo route -n add -net 10.1.0.0/16  -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 10.2.0.0/15  -interface "${CISCO_INTERFACE}"
@@ -82,9 +81,12 @@ sudo route -n add -net 64.128.0.0/10 -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 64.192.0.0/11 -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 64.224.0.0/32 -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 72.163 -interface "${CISCO_INTERFACE}"
-sudo route -n add -net 172.18 -interface "${CISCO_INTERFACE}"
-sudo route -n add -net 199.91.0.0/16 -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 148.62.40.0/24 -interface "${CISCO_INTERFACE}"
+sudo route -n add -net 149.96 -interface "${CISCO_INTERFACE}"
+sudo route -n add -net 172.16 -interface "${CISCO_INTERFACE}"
+sudo route -n add -net 172.18 -interface "${CISCO_INTERFACE}"
+sudo route -n add -net 192.168.111 -interface "${CISCO_INTERFACE}"
+sudo route -n add -net 199.91.0.0/16 -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 13.59.223/24 -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 13.56.118.0/24 -interface "${CISCO_INTERFACE}"
 
@@ -112,6 +114,7 @@ sudo sysctl -w net.inet.ip.forwarding=1
 # delete routes for cisco specific servers that we know about.
 
 sudo route -n delete -net 148.62.40.0/24 -interface "${CISCO_INTERFACE}"
+sudo route -n delete -net 149.96 -interface "${CISCO_INTERFACE}"
 sudo route -n delete -net 173.36 -interface "${CISCO_INTERFACE}"
 sudo route -n delete -net 173.37 -interface "${CISCO_INTERFACE}"
 sudo route -n delete -net 173.38 -interface "${CISCO_INTERFACE}"
@@ -121,7 +124,6 @@ sudo route -n delete -net 171.69 -interface "${CISCO_INTERFACE}"
 sudo route -n delete -net 171.70 -interface "${CISCO_INTERFACE}"
 sudo route -n delete -net 171.71 -interface "${CISCO_INTERFACE}"
 sudo route -n delete -net 161.144 -interface "${CISCO_INTERFACE}"
-sudo route -n delete -net 192.168.149 -interface "${CISCO_INTERFACE}"
 #
 sudo route -n delete -net 10.1.0.0/16  -interface "${CISCO_INTERFACE}"
 sudo route -n delete -net 10.2.0.0/15  -interface "${CISCO_INTERFACE}"
@@ -148,7 +150,9 @@ sudo route -n delete -net 64.192.0.0/11 -interface "${CISCO_INTERFACE}"
 sudo route -n delete -net 64.224.0.0/32 -interface "${CISCO_INTERFACE}"
 
 sudo route -n delete -net 72.163 -interface "${CISCO_INTERFACE}"
+sudo route -n delete -net 172.16 -interface "${CISCO_INTERFACE}"
 sudo route -n delete -net 172.18 -interface "${CISCO_INTERFACE}"
+sudo route -n delete -net 192.168.111 -interface "${CISCO_INTERFACE}"
 sudo route -n delete -net 199.91.0.0/16 -interface "${CISCO_INTERFACE}"
 sudo route -n delete -net 13.59.223/24 -interface "${CISCO_INTERFACE}"
 sudo route -n delete -net 13.56.118.0/24 -interface "${CISCO_INTERFACE}"
