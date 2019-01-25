@@ -57,6 +57,7 @@ sudo route -n add -net 171.70 -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 171.71 -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 161.144 -interface "${CISCO_INTERFACE}"
 #
+sudo route -n add -net 3.17  -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 10.1.0.0/16  -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 10.2.0.0/15  -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 10.4.0.0/14  -interface "${CISCO_INTERFACE}"
@@ -73,22 +74,36 @@ sudo route -n add -net 10.192.0.0/11 -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 10.224.0.0/32 -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 10.230 -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 10.252 -interface "${CISCO_INTERFACE}"
+sudo route -n add -net 13.59.223/24 -interface "${CISCO_INTERFACE}"
+sudo route -n add -net 13.56.118.0/24 -interface "${CISCO_INTERFACE}"
+
 #
+
+sudo route -n add -net 23.96.0.0/13 -interface "${CISCO_INTERFACE}"
+sudo route -n add -net 52.96.0.0/16 -interface "${CISCO_INTERFACE}"
+
+sudo route -n add -net 40.64.0.0/10 -interface "${CISCO_INTERFACE}"
+
 sudo route -n add -net 64.100.0.0/14 -interface "${CISCO_INTERFACE}"
-sudo route -n add -net 64.104.0.0/13 -interface "${CISCO_INTERFACE}"
+sudo route -n add -net 64.104.0.0/16 -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 64.112.0.0/12 -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 64.128.0.0/10 -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 64.192.0.0/11 -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 64.224.0.0/32 -interface "${CISCO_INTERFACE}"
+
+sudo route -n add -net 69.162.64.0/18 -interface "${CISCO_INTERFACE}"
+
+
 sudo route -n add -net 72.163 -interface "${CISCO_INTERFACE}"
+
+sudo route -n add -net 104.208.0.0/13 -interface "${CISCO_INTERFACE}"
+
 sudo route -n add -net 148.62.40.0/24 -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 149.96 -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 172.16 -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 172.18 -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 192.168.111 -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 199.91.0.0/16 -interface "${CISCO_INTERFACE}"
-sudo route -n add -net 13.59.223/24 -interface "${CISCO_INTERFACE}"
-sudo route -n add -net 13.56.118.0/24 -interface "${CISCO_INTERFACE}"
 
 #
 # because Cisco throttles uploads to dockerhub
@@ -142,20 +157,32 @@ sudo route -n delete -net 10.128.0.0/10 -interface "${CISCO_INTERFACE}"
 sudo route -n delete -net 10.192.0.0/11 -interface "${CISCO_INTERFACE}"
 sudo route -n delete -net 10.224.0.0/32 -interface "${CISCO_INTERFACE}"
 #
+sudo route -n delete -net 23.96.0.0/13 -interface "${CISCO_INTERFACE}"
+sudo route -n delete -net 52.96.0.0/16 -interface "${CISCO_INTERFACE}"
+
+
+sudo route -n delete -net 40.64.0.0/10 -interface "${CISCO_INTERFACE}"
+
 sudo route -n delete -net 64.100.0.0/14 -interface "${CISCO_INTERFACE}"
-sudo route -n delete -net 64.104.0.0/13 -interface "${CISCO_INTERFACE}"
+sudo route -n delete -net 64.104.0.0/16 -interface "${CISCO_INTERFACE}"
 sudo route -n delete -net 64.112.0.0/12 -interface "${CISCO_INTERFACE}"
 sudo route -n delete -net 64.128.0.0/10 -interface "${CISCO_INTERFACE}"
 sudo route -n delete -net 64.192.0.0/11 -interface "${CISCO_INTERFACE}"
 sudo route -n delete -net 64.224.0.0/32 -interface "${CISCO_INTERFACE}"
 
+sudo route -n delete -net 69.162.64.0/18 -interface "${CISCO_INTERFACE}"
+
 sudo route -n delete -net 72.163 -interface "${CISCO_INTERFACE}"
+
+sudo route -n delete -net 104.208.0.0/13 -interface "${CISCO_INTERFACE}"
+
 sudo route -n delete -net 172.16 -interface "${CISCO_INTERFACE}"
 sudo route -n delete -net 172.18 -interface "${CISCO_INTERFACE}"
 sudo route -n delete -net 192.168.111 -interface "${CISCO_INTERFACE}"
 sudo route -n delete -net 199.91.0.0/16 -interface "${CISCO_INTERFACE}"
 sudo route -n delete -net 13.59.223/24 -interface "${CISCO_INTERFACE}"
 sudo route -n delete -net 13.56.118.0/24 -interface "${CISCO_INTERFACE}"
+sudo route -n delete -net 3.17  -interface "${CISCO_INTERFACE}"
 
 sudo route -n delete -net 217.70.184.38/31 -interface "${CISCO_INTERFACE}"
 # for aws cloud instances
