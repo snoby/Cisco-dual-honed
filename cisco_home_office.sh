@@ -57,7 +57,7 @@ sudo route -n add -net 171.70 -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 171.71 -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 161.144 -interface "${CISCO_INTERFACE}"
 #
-sudo route -n add -net 3.17  -interface "${CISCO_INTERFACE}"
+sudo route -n add -net 3.16  -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 10.1.0.0/16  -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 10.2.0.0/15  -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 10.4.0.0/14  -interface "${CISCO_INTERFACE}"
@@ -182,7 +182,7 @@ sudo route -n delete -net 192.168.111 -interface "${CISCO_INTERFACE}"
 sudo route -n delete -net 199.91.0.0/16 -interface "${CISCO_INTERFACE}"
 sudo route -n delete -net 13.59.223/24 -interface "${CISCO_INTERFACE}"
 sudo route -n delete -net 13.56.118.0/24 -interface "${CISCO_INTERFACE}"
-sudo route -n delete -net 3.17  -interface "${CISCO_INTERFACE}"
+sudo route -n delete -net 3.16  -interface "${CISCO_INTERFACE}"
 
 sudo route -n delete -net 217.70.184.38/31 -interface "${CISCO_INTERFACE}"
 # for aws cloud instances
