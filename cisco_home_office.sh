@@ -102,6 +102,7 @@ sudo route -n add -net 104.208.0.0/13 -interface "${CISCO_INTERFACE}"
 
 sudo route -n add -net 148.62.40.0/24 -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 149.96 -interface "${CISCO_INTERFACE}"
+sudo route -n add -net 161.44 -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 172.16 -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 172.18 -interface "${CISCO_INTERFACE}"
 sudo route -n add -net 192.168.111 -interface "${CISCO_INTERFACE}"
@@ -121,7 +122,9 @@ sudo route -n add -net 52.0.0.0/6 -interface "${CISCO_INTERFACE}"
 #
 # Set DNS for Cisco networks
 #
-sudo networksetup -setdnsservers Home 64.102.6.247 "${HOME_DNS}"
+#sudo networksetup -setdnsservers Home 64.102.6.247 "${HOME_DNS}"
+sudo networksetup -setdnsservers Home 161.44.124.122 "${HOME_DNS}"
+sudo killall -HUP mDNSResponder;sudo killall mDNSResponderHelper;sudo dscacheutil -flushcache
 
 }
 
@@ -141,6 +144,7 @@ sudo route -n delete -net 171.68 -interface "${CISCO_INTERFACE}"
 sudo route -n delete -net 171.69 -interface "${CISCO_INTERFACE}"
 sudo route -n delete -net 171.70 -interface "${CISCO_INTERFACE}"
 sudo route -n delete -net 171.71 -interface "${CISCO_INTERFACE}"
+sudo route -n delete -net 161.44 -interface "${CISCO_INTERFACE}"
 sudo route -n delete -net 161.144 -interface "${CISCO_INTERFACE}"
 #
 sudo route -n delete -net 10.1.0.0/16  -interface "${CISCO_INTERFACE}"
@@ -198,6 +202,7 @@ sudo route -n delete -net 217.70.184.38/31 -interface "${CISCO_INTERFACE}"
   # Set DNS for Cisco networks
   #
   sudo networksetup -setdnsservers Home "${HOME_DNS}" 8.8.8.8
+  sudo killall -HUP mDNSResponder;sudo killall mDNSResponderHelper;sudo dscacheutil -flushcache
 }
 
 #
