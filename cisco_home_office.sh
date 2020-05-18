@@ -27,9 +27,11 @@ cat <<HEREDOC
 
   That way I can just call 'cisco-on' or 'cisco-off' when I want too.
 
+  YOU MUST PUT IN YOUR DEFAULTS IN THIS FILE BELOW!!!!!!
+
   -----------------------------------------------------------
-  Pass in cisco-only to make cisco interface top priority
-  Pass in home-only to make the home interface top priority
+  (DOES NOT WORK YET)  Pass in cisco-only to make cisco interface top priority
+  (DOES NOT WORK YET) Pass in home-only to make the home interface top priority
 
 HEREDOC
 
@@ -41,7 +43,7 @@ if [ "--help" == "$1" ]; then usage; exit; fi
 
 CISCO_INTERFACE=en8
 CISCO_DNS=64.102.6.247
-HOME_INTERFACE="Sonnet"
+HOME_INTERFACE="10G"
 HOME_DNS=10.0.0.1
 
 create_route() {
