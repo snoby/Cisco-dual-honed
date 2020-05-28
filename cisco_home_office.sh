@@ -46,6 +46,20 @@ CISCO_DNS=64.102.6.247
 HOME_INTERFACE="10G"
 HOME_DNS=10.0.0.1
 
+
+HOME_INTERFACE_NAME="10G"
+CISCO_INTERFACE_NAME="Cisco"
+
+HOME_INTERFACE_DEVICE_ID=$(networksetup -listnetworkserviceorder | grep "$HOME_INTERFACE_NAME" -A2 | awk -F ':' '{print substr($3, 1, length($3)-1)}' | tr -d '\n')
+CISCO_INTERFACE_DEVICE_ID=$(networksetup -listnetworkserviceorder | grep "$CISCO_INTERFACE_NAME" -A2 | awk -F ':' '{print substr($3, 1, length($3)-1)}' | tr -d '\n')
+
+
+echo "HOME INTERFACE_DEVICE_ID = $HOME_INTERFACE_DEVICE_ID"
+echo "CISCO INTERFACE_DEVICE_ID = $CISCO_INTERFACE_DEVICE_ID"
+
+#Global array value needed to list out interfaces
+NEW=()
+
 create_route() {
 sudo networksetup -setnetworkserviceenabled "$HOME_INTERFACE" on
 sudo sysctl -w net.inet.ip.forwarding=1
@@ -230,12 +244,41 @@ sudo route -n delete -net 217.70.184.38/31 -interface "${CISCO_INTERFACE}"
 #
 # Enable ip forwarding
 
+#
+# Will populate the NEW array with a list of network interfaces that DO NOT include the
+# home interface nor the cisco interface
+#
+interface_list(){
+  SAVEIFS=$IFS
+  IFS=$(echo -en "\n\b")
+  LIST=$(networksetup -listnetworkserviceorder | cut -d')' -f2 | sed '/^$/d' | sed '1d' | sed -e 's/^[ \t]*//')
+
+
+  for i in ${LIST[@]}
+  do
+    if [ "$i" = "$HOME_INTERFACE_NAME" ] ; then
+      true
+    elif [ "$i" = "$CISCO_INTERFACE_NAME" ] ; then
+      true
+    else
+        NEW+=("$i")
+    fi
+  done
+  IFS=$SAVEIFS
+
+}
+
+
+
+
 cisco_only() {
-  networksetup -ordernetworkservices "$CISCO_INTERFACE" "$HOME_INTERFACE" "Wi-Fi"
+  interface_list
+  networksetup -ordernetworkservices "$CISCO_INTERFACE_NAME" "$HOME_INTERFACE_NAME" "${NEW[@]}"
 }
 
 home_only() {
-  networksetup -ordernetworkservices "$CISCO_INTERFACE" "$HOME_INTERFACE" "Wi-Fi"
+  interface_list
+  networksetup -ordernetworkservices "$HOME_INTERFACE_NAME" "$CISCO_INTERFACE_NAME" "${NEW[@]}"
 }
 
   case "$1" in
