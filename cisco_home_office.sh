@@ -41,9 +41,8 @@ HEREDOC
 if [ -z "$1" ]; then usage; exit; fi
 if [ "--help" == "$1" ]; then usage; exit; fi
 
-#CISCO_INTERFACE=en8
-CISCO_DNS=64.102.6.247
-#HOME_INTERFACE="10G"
+CISCO_DNS1="64.102.6.247"
+CISCO_DNS2="161.44.124.122"
 HOME_DNS=10.0.0.1
 
 
@@ -66,6 +65,8 @@ sudo sysctl -w net.inet.ip.forwarding=1
 
 
 
+#for test for terraform
+sudo route -n add -net 3.129.128.0/17 -interface "${CISCO_INTERFACE_DEVICE_ID}"
 
 
 # Add routes for cisco specific servers that we know about.
@@ -99,7 +100,9 @@ sudo route -n add -net 10.192.0.0/11 -interface "${CISCO_INTERFACE_DEVICE_ID}"
 sudo route -n add -net 10.224.0.0/32 -interface "${CISCO_INTERFACE_DEVICE_ID}"
 sudo route -n add -net 10.226.0.0/16 -interface "${CISCO_INTERFACE_DEVICE_ID}"
 sudo route -n add -net 10.230 -interface "${CISCO_INTERFACE_DEVICE_ID}"
+sudo route -n add -net 10.240 -interface "${CISCO_INTERFACE_DEVICE_ID}"
 sudo route -n add -net 10.252 -interface "${CISCO_INTERFACE_DEVICE_ID}"
+sudo route -n add -net 10.251 -interface "${CISCO_INTERFACE_DEVICE_ID}"
 sudo route -n add -net 13.59.86/22 -interface "${CISCO_INTERFACE_DEVICE_ID}"
 sudo route -n add -net 13.59.223/24 -interface "${CISCO_INTERFACE_DEVICE_ID}"
 sudo route -n add -net 13.56.118.0/24 -interface "${CISCO_INTERFACE_DEVICE_ID}"
@@ -111,6 +114,7 @@ sudo route -n add -net 18.211.0.0/14  -interface "${CISCO_INTERFACE_DEVICE_ID}"
 sudo route -n add -net 23.96.0.0/13 -interface "${CISCO_INTERFACE_DEVICE_ID}"
 sudo route -n add -net 52.96.0.0/16 -interface "${CISCO_INTERFACE_DEVICE_ID}"
 
+sudo route -n add -net 34.193.0.0/10 -interface "${CISCO_INTERFACE_DEVICE_ID}"
 sudo route -n add -net 40.64.0.0/10 -interface "${CISCO_INTERFACE_DEVICE_ID}"
 
 sudo route -n add -net 64.100.0.0/14 -interface "${CISCO_INTERFACE_DEVICE_ID}"
@@ -150,8 +154,7 @@ sudo route -n add -net 52.0.0.0/6 -interface "${CISCO_INTERFACE_DEVICE_ID}"
 #
 # Set DNS for Cisco networks
 #
-#sudo networksetup -setdnsservers Sonnet 64.102.6.247 "${HOME_DNS}"
-sudo networksetup -setdnsservers "$HOME_INTERFACE_NAME" "$CISCO_DNS" "${HOME_DNS}"
+sudo networksetup -setdnsservers "$HOME_INTERFACE_NAME" "$CISCO_DNS1" "$CISCO_DNS2" "${HOME_DNS}"
 sudo killall -HUP mDNSResponder;sudo killall mDNSResponderHelper;sudo dscacheutil -flushcache
 
 }
@@ -161,6 +164,9 @@ delete_route() {
 sudo sysctl -w net.inet.ip.forwarding=1
 #sudo networksetup -setnetworkserviceenabled Sonnet off
 # delete routes for cisco specific servers that we know about.
+
+# for terraform
+sudo route -n add -net 3.129.128.0/17 -interface "${CISCO_INTERFACE_DEVICE_ID}"
 
 sudo route -n delete -net 3.13  -interface "${CISCO_INTERFACE_DEVICE_ID}"
 sudo route -n delete -net 3.16  -interface "${CISCO_INTERFACE_DEVICE_ID}"
@@ -186,6 +192,8 @@ sudo route -n delete -net 10.8.0.0/13   -interface "${CISCO_INTERFACE_DEVICE_ID}
 sudo route -n delete -net 10.16.0.0/12  -interface "${CISCO_INTERFACE_DEVICE_ID}"
 sudo route -n delete -net 10.32.0.0/13  -interface "${CISCO_INTERFACE_DEVICE_ID}"
 sudo route -n delete -net 10.252 -interface "${CISCO_INTERFACE_DEVICE_ID}"
+sudo route -n delete -net 10.251 -interface "${CISCO_INTERFACE_DEVICE_ID}"
+sudo route -n delete -net 10.240 -interface "${CISCO_INTERFACE_DEVICE_ID}"
 sudo route -n delete -net 10.230 -interface "${CISCO_INTERFACE_DEVICE_ID}"
 sudo route -n delete -net 10.226.0.0/16 -interface "${CISCO_INTERFACE_DEVICE_ID}"
 
@@ -202,6 +210,7 @@ sudo route -n delete -net 23.96.0.0/13 -interface "${CISCO_INTERFACE_DEVICE_ID}"
 sudo route -n delete -net 52.96.0.0/16 -interface "${CISCO_INTERFACE_DEVICE_ID}"
 
 
+sudo route -n delete -net 34.193.0.0/10 -interface "${CISCO_INTERFACE_DEVICE_ID}"
 sudo route -n delete -net 40.64.0.0/10 -interface "${CISCO_INTERFACE_DEVICE_ID}"
 
 sudo route -n delete -net 64.100.0.0/14 -interface "${CISCO_INTERFACE_DEVICE_ID}"
